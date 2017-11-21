@@ -22,3 +22,6 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+/springboot-dubbo-consumer/target/
+/springboot-dubbo-interface/target/
+/springboot-dubbo-producer/target/

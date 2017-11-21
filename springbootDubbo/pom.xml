@@ -6,7 +6,12 @@
 	<groupId>com.cmsz.cn</groupId>
 	<artifactId>springboot-dubbo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<modules>
+		<module>springboot-dubbo-interface</module>
+		<module>springboot-dubbo-consumer</module>
+		<module>springboot-dubbo-producer</module>
+	</modules>
+	<packaging>pom</packaging>
 
 	<name>springboot-dubbo</name>
 	<description>Demo project for Spring Boot</description>

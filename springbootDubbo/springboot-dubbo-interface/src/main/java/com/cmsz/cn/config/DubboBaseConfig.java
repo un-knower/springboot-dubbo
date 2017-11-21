@@ -4,7 +4,7 @@ import com.alibaba.dubbo.config.*;
 import org.springframework.context.annotation.Bean;
 
 /**
- * Created by le on 2017/11/21.
+ * Created by le on 2017/11/2145.
  */
 public class DubboBaseConfig {
     @Bean
@@ -28,7 +28,6 @@ public class DubboBaseConfig {
         mc.setProtocol("registry");
         return mc;
     }
-
     @Bean
     public ReferenceConfig referenceConfig() {
         ReferenceConfig rc = new ReferenceConfig();

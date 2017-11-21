@@ -1,7 +1,8 @@
-package com.cmsz.cn.service;
+package com.cmsz.cn.config;
 
 import com.alibaba.dubbo.config.spring.ServiceBean;
 import com.cmsz.cn.config.DubboBaseConfig;
+import com.cmsz.cn.service.Person;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
