@@ -2,6 +2,7 @@ package com.cmsz.cn.config;
 
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.producer.KafkaProducer;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -13,15 +14,17 @@ import java.util.Properties;
 @Configuration
 public class kafkaConfig {
 
-    public Properties buildKafkaProperties(){
+    private Properties buildKafkaProperties(){
         Properties props = new Properties();
-        props.put("bootstrap.servers", "localhost:9092");
+        props.put("bootstrap.servers", "192.168.5.51:9092");
         props.put("group.id", "test");
         /*取最早的消息体，防止数据丢失*/
         props.put("enable.auto.commit", "false");
         props.put("auto.offset.reset", "earliest");
         props.put("auto.commit.interval.ms", "1000");
         props.put("session.timeout.ms", "30000");
+        props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+        props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
         props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
         return props;
@@ -37,11 +40,11 @@ public class kafkaConfig {
 
      @Bean(name = "kafkaProducer")
      public KafkaProducer<String,String> kafkaProducer(){
-         Properties properties=buildKafkaProperties();
+         Properties props = buildKafkaProperties();
          //配置每一批的大小为16M,第二行配置每隔10ms一发送
-         properties.put("batch.size", 16384);
-         properties.put("linger.ms", 10);
-         return new KafkaProducer<String, String>(properties);
+         props.put("batch.size", 16384);
+         props.put("linger.ms", 10);
+         return new KafkaProducer<String, String>(props);
      }
 
 }

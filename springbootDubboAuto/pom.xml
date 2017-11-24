@@ -10,6 +10,7 @@
         <module>spring-dubbo-auto-interface</module>
         <module>springboot-dubbo-auto-provider</module>
         <module>springboot-dubbo-auto-consumer</module>
+        <module>springboot-kafka</module>
     </modules>
     <packaging>pom</packaging>
 

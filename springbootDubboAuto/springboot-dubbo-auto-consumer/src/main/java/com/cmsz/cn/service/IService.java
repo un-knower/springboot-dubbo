@@ -1,5 +1,7 @@
 package com.cmsz.cn.service;
 
+import com.cmsz.cn.bean.Order;
+
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -7,4 +9,7 @@ import java.util.concurrent.ExecutionException;
  */
 public interface IService {
     String talk() throws ExecutionException, InterruptedException;
+
+    void sendTradeMessage(Order order);
+
 }

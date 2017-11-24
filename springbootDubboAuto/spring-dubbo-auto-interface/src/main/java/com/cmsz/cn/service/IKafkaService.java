@@ -1,4 +1,4 @@
-package com.cmsz.cn.kafka;
+package com.cmsz.cn.service;
 
 import com.cmsz.cn.bean.KafkaBean;
 

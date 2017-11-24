@@ -1,7 +1,6 @@
 package com.cmsz.cn.bean;
 
 import com.cmsz.cn.annotation.KafkaAnnotation;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NonNull;
 
