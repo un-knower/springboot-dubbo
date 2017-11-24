@@ -4,16 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.cmsz.cn</groupId>
-	<artifactId>springboot-dubbo-auto</artifactId>
+	<artifactId>springboot-kafka</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-    <modules>
-        <module>spring-dubbo-auto-interface</module>
-        <module>springboot-dubbo-auto-provider</module>
-        <module>springboot-dubbo-auto-consumer</module>
-    </modules>
-    <packaging>pom</packaging>
+	<packaging>jar</packaging>
 
-	<name>springboot-dubbo-auto</name>
+	<name>springboot-kafka</name>
 	<description>Demo project for Spring Boot</description>
 
 	<parent>
@@ -32,7 +27,26 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.apache.kafka/kafka-clients -->
+		<dependency>
+			<groupId>org.apache.kafka</groupId>
+			<artifactId>kafka-clients</artifactId>
+			<version>0.11.0.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.kafka/kafka -->
+		<dependency>
+			<groupId>org.apache.kafka</groupId>
+			<artifactId>kafka_2.12</artifactId>
+			<version>0.11.0.0</version>
 		</dependency>
 
 		<dependency>
@@ -40,26 +54,12 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<!-- Spring Boot Dubbo 依赖 -->
-		<!-- https://mvnrepository.com/artifact/com.gitee.reger/spring-boot-starter-dubbo -->
-		<dependency>
-			<groupId>com.gitee.reger</groupId>
-			<artifactId>spring-boot-starter-dubbo</artifactId>
-			<version>1.0.9</version>
-		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
 		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-			<version>2.8.0</version>
+			<groupId>com.cmsz.cn</groupId>
+			<artifactId>springboot-dubbo-auto-provider</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-
 
 	</dependencies>
 

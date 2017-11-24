@@ -20,7 +20,7 @@ public class ServiceImpl implements IService {
 
     private static final Logger logger = LoggerFactory.getLogger(ServiceImpl.class);
 
-   @Reference(group = "HYTC",version = "1.0.0",cache = "true")
+   @Reference(group = "HYTC",version = "1.0.0")
     private ICityService cityService;
 
     @Override
