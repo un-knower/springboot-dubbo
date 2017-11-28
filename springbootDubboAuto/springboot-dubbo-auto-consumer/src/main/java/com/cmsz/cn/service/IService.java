@@ -10,6 +10,6 @@ import java.util.concurrent.ExecutionException;
 public interface IService {
     String talk() throws ExecutionException, InterruptedException;
 
-    void sendTradeMessage(Order order);
+    boolean sendTradeMessage(Order order);
 
 }

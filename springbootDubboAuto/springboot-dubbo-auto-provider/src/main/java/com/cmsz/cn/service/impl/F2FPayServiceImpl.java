@@ -29,7 +29,6 @@ public class F2FPayServiceImpl implements IF2FPayService {
 
     @Override
     public Order preTradePay(Order order) {
-        boolean tradeFlag=false;
         if(StringUtils.isEmpty(order.getOut_trade_no())){
             throw new NullPointerException("交易订单号为空");
         }

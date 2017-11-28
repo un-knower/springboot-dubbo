@@ -5,23 +5,24 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NonNull;
 
+import java.io.Serializable;
+
 /**
  * Created by le on 2017/11/24.
  */
 @Data
-@KafkaAnnotation(topic = "hytc")
-public class KafkaBean {
+public class KafkaBean  implements Serializable {
 
     private String key;
 
-    @NonNull
     private String value;
 
     private long offset;
 
-    @NonNull
     private String status;
 
     private Integer retryNum=0;
+
+    private String topic;
 
 }

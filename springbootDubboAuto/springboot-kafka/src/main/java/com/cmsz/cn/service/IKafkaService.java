@@ -9,7 +9,9 @@ import java.util.List;
  */
 public interface IKafkaService {
 
-    void sendMessage(KafkaBean kafkaBean);
+    Boolean sendMessage(KafkaBean kafkaBean);
+
+    void sendMessage(String value);
 
     void sendMessage(List<KafkaBean> kafkaBeanList);
 

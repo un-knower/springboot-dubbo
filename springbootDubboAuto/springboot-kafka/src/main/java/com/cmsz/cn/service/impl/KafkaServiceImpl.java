@@ -1,17 +1,13 @@
 package com.cmsz.cn.service.impl;
 
-import com.alibaba.dubbo.config.annotation.Reference;
+//import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.cmsz.cn.annotation.KafkaAnnotation;
 import com.cmsz.cn.bean.KafkaBean;
-import com.cmsz.cn.bean.Order;
-import com.cmsz.cn.service.IF2FPayService;
 import com.cmsz.cn.service.IKafkaService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.apache.kafka.clients.consumer.ConsumerRecords;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
+import com.reger.dubbo.annotation.Inject;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.slf4j.Logger;
@@ -20,9 +16,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -39,23 +33,21 @@ public class KafkaServiceImpl implements IKafkaService {
     @Resource(name = "kafkaProducer")
     private KafkaProducer<String,String> kafkaProducer;
 
-    @Resource(name = "kafkaConsumer")
-    private KafkaConsumer<String,String> kafkaConsumer;
-
-    @Reference(version = "1.0.0",group = "HYTC",interfaceName = "f2FPayService",check = false)
-    private IF2FPayService f2FPayService;
-
     @Override
-    public void sendMessage(KafkaBean kafkaBean) {
-        if(kafkaBean.getClass().isAnnotationPresent(KafkaAnnotation.class)){
-            KafkaAnnotation kafkaAnnotation=kafkaBean.getClass().getAnnotation(KafkaAnnotation.class);
-            String topic=kafkaAnnotation.topic();
+    public Boolean sendMessage(KafkaBean kafkaBean) {
+        boolean isSuccess=false;
+        if(StringUtils.isEmpty(kafkaBean.getTopic())){
+            logger.error("消息队列无Topic,请核实消息体：{}",gson.toJson(kafkaBean));
+        }else{
             if(StringUtils.isEmpty(kafkaBean.getKey())){
-                kafkaProducer.send(new ProducerRecord<String, String>(topic,kafkaBean.getValue()));
+                kafkaProducer.send(new ProducerRecord<String, String>("lile",kafkaBean.getValue()));
+                isSuccess=true;
             }else{
-                kafkaProducer.send(new ProducerRecord<String, String>(topic,kafkaBean.getKey(),kafkaBean.getValue()));
+                kafkaProducer.send(new ProducerRecord<String, String>("lile",kafkaBean.getKey(),kafkaBean.getValue()));
+                isSuccess=true;
             }
         }
+        return isSuccess;
     }
 
     @Override
@@ -65,6 +57,18 @@ public class KafkaServiceImpl implements IKafkaService {
                  sendMessage(kafkaBean);
              }
          }
+    }
+
+    @Override
+    public void sendMessage(String value) {
+        logger.info("发送消息队列。。。。");
+        KafkaBean kafkaBean=gson.fromJson(value,KafkaBean.class);
+        System.out.println(kafkaBean.getKey());
+        if(StringUtils.isEmpty(kafkaBean.getKey())){
+            kafkaProducer.send(new ProducerRecord<String, String>("hytc",kafkaBean.getValue()));
+        }else{
+            kafkaProducer.send(new ProducerRecord<String, String>("hytc",kafkaBean.getKey(),kafkaBean.getValue()));
+        }
     }
 
 }

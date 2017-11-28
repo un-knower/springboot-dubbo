@@ -16,7 +16,7 @@ public class kafkaConfig {
 
     private Properties buildKafkaProperties(){
         Properties props = new Properties();
-        props.put("bootstrap.servers", "192.168.5.51:9092");
+        props.put("bootstrap.servers", "hadoop2:9092");
         props.put("group.id", "test");
         /*取最早的消息体，防止数据丢失*/
         props.put("enable.auto.commit", "false");

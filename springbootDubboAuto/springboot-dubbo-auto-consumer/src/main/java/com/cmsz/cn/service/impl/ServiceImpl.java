@@ -28,10 +28,10 @@ public class ServiceImpl implements IService {
     final GsonBuilder gsonBuilder = new GsonBuilder();
     final Gson gson = gsonBuilder.create();
 
-   @Reference(group = "HYTC",version = "1.0.0")
+   @Reference(group = "HYTC",version = "1.0.0",check = false)
     private ICityService cityService;
 
-    @Reference(group = "HYTC",version = "1.0.0",interfaceName = "kafkaService")
+    @Reference(group = "HYTC",version = "1.0.0",interfaceName = "kafkaService",check = false)
     private IKafkaService kafkaService;
 
     @Override
@@ -49,11 +49,25 @@ public class ServiceImpl implements IService {
     }
 
     @Override
-    public void sendTradeMessage(Order order) {
-       order.setOut_trade_no("HYTC_"+String.valueOf(System.currentTimeMillis()));
-       String orderDetail=gson.toJson(order);
-        KafkaBean kafkaBean=new KafkaBean(orderDetail,"unhander");
+    public boolean sendTradeMessage(Order order) {
+        boolean isSendSuccess=false;
+        order.setOut_trade_no("HYTC_"+String.valueOf(System.currentTimeMillis()));
+        String orderDetail=gson.toJson(order);
+        KafkaBean kafkaBean=new KafkaBean();
+        kafkaBean.setTopic("lile");
+        kafkaBean.setValue(orderDetail);
         kafkaBean.setKey(order.getOut_trade_no());
-        kafkaService.sendMessage(kafkaBean);
+        try {
+            isSendSuccess=kafkaService.sendMessage(kafkaBean);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        if(isSendSuccess){
+            logger.debug("消息发送成功：{}",gson.toJson(kafkaBean));
+            isSendSuccess=true;
+        }else{
+            logger.error("消息发送失败：{}",gson.toJson(kafkaBean));
+        }
+        return isSendSuccess;
     }
 }

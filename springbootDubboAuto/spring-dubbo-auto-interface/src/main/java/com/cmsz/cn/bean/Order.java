@@ -2,11 +2,13 @@ package com.cmsz.cn.bean;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * Created by le on 2017/11/16.
  */
 @Data
-public class Order {
+public class Order  implements Serializable {
     /*订单id*/
     private String out_trade_no;
     /*总金额*/
@@ -21,5 +23,7 @@ public class Order {
     private String refund_amount;
 
     private String tradeFlag="false";
+
+    private String remake;
 
 }
